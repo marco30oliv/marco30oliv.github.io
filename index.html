@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marco Oliveira</title>
+    <title>Marco Antonio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
@@ -14,17 +14,13 @@
             --accent-color: #f05454;
             --music-color: #a64ac9;
             --text-color: #f5f5f5;
-            --text-dark: #121212;
             --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            --guitar-opacity: 0.25;
+            --carousel-item-size: 180px;
+            --carousel-gap: 2rem;
+            --carousel-arrow-size: 60px;
+            --focus-scale: 1.1;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--primary-color);
@@ -32,8 +28,10 @@
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
+            margin: 0;
+            padding: 0;
         }
-
+        
         body::before {
             content: "";
             position: fixed;
@@ -45,11 +43,11 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            opacity: var(--guitar-opacity);
+            opacity: 0.25;
             z-index: -1;
             filter: grayscale(20%) contrast(110%) brightness(90%);
         }
-
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -61,7 +59,7 @@
             align-items: center;
             text-align: center;
         }
-
+        
         .profile {
             margin-bottom: 2rem;
             animation: fadeIn 1s ease-in-out;
@@ -69,18 +67,22 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
         }
-
+        
         .profile h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            margin-bottom: 1rem;
+            font-size: 2.95rem;
+            margin-bottom: 0.7rem;
             color: var(--text-color);
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
             letter-spacing: 1px;
             position: relative;
+            display: inline-block;
+            white-space: nowrap;
+            line-height: 1.1;
         }
-
+        
         .profile h1::after {
             content: "";
             position: absolute;
@@ -91,7 +93,7 @@
             height: 3px;
             background: linear-gradient(to right, transparent, var(--secondary-color), transparent);
         }
-
+        
         .profile .subtitle {
             font-size: 1.1rem;
             font-weight: 300;
@@ -100,7 +102,217 @@
             margin-top: 2rem;
             color: rgba(255,255,255,0.8);
         }
-
+        
+        /* Carrossel */
+        .carousel-zone {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            width: 100%;
+        }
+        
+        .carousel-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-width: 280px;
+            position: relative;
+            padding: 0 80px;
+        }
+        
+        .carousel-arrow {
+            background: rgba(0,0,0,0.25);
+            border: none;
+            color: #fff;
+            border-radius: 50%;
+            width: var(--carousel-arrow-size); 
+            height: var(--carousel-arrow-size);
+            min-width: var(--carousel-arrow-size); 
+            min-height: var(--carousel-arrow-size);
+            font-size: 2.4rem;
+            cursor: pointer;
+            transition: all .3s;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .carousel-arrow:hover { 
+            background: rgba(0,0,0,0.4);
+            transform: scale(1.05);
+            border-color: rgba(255,255,255,0.4);
+        }
+        
+        #leftBtn {
+            left: 10px;
+        }
+        
+        #rightBtn {
+            right: 10px;
+        }
+        
+        .carousel-list-wrapper {
+            overflow: hidden;
+            width: 100%;
+            max-width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .carousel-list {
+            display: flex;
+            align-items: center;
+            gap: var(--carousel-gap);
+            transition: transform 0.5s cubic-bezier(.77,0,.18,1);
+            will-change: transform;
+            padding: 20px 0;
+            touch-action: pan-x;
+        }
+        
+        .carousel-item {
+            width: var(--carousel-item-size);
+            height: var(--carousel-item-size);
+            min-width: var(--carousel-item-size);
+            min-height: var(--carousel-item-size);
+            border-radius: 20px;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.3rem;
+            opacity: 0.7;
+            transition: 
+                box-shadow .3s,
+                opacity .4s,
+                transform .4s cubic-bezier(.6,.6,0,1);
+            position: relative;
+            border: 3px solid transparent;
+            background-color: #222;
+            overflow: hidden;
+        }
+        
+        .carousel-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+        }
+        
+        .carousel-item span {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        .carousel-item.active {
+            opacity: 1;
+            transform: scale(var(--focus-scale));
+            box-shadow: 0 8px 25px 4px rgba(0,0,0,0.3);
+            border: 3px solid var(--secondary-color);
+            z-index: 3;
+        }
+        
+        .carousel-item[data-bg="pessoal"] {
+            background-image: url('https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80');
+        }
+        
+        .carousel-item[data-bg="musica"] {
+            background-image: url('https://images.unsplash.com/photo-1511376777868-611b54f68947?auto=format&fit=crop&w=400&q=80');
+        }
+        
+        .carousel-item[data-bg="faculdade"] {
+            background-image: url('https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=400&q=80');
+        }
+        
+        .carousel-item[data-bg="outros"] {
+            background-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80');
+        }
+        
+        .carousel-buttons-below {
+            min-height: 56px;
+            margin-bottom: 2.5rem;
+            margin-top: 2.7rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .carousel-below-group {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            animation: fadeIn .6s;
+        }
+        
+        .carousel-below-group.active {
+            display: flex;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1.1rem 2.4rem;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.06rem;
+            transition: all 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: var(--shadow);
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            position: relative;
+            overflow: hidden;
+            background: var(--accent-color);
+        }
+        
+        .btn.btn-music {
+            background: var(--music-color);
+        }
+        
+        .btn:active {
+            transform: translateY(2px);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 22px rgba(0,0,0,0.37);
+        }
+        
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255,255,255,0.08), rgba(255,255,255,0));
+            opacity: 0;
+            transition: opacity 0.33s;
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            opacity: 1;
+        }
+        
         .buttons {
             display: flex;
             flex-direction: column;
@@ -109,60 +321,7 @@
             max-width: 400px;
             margin-bottom: 3rem;
         }
-
-        .btn {
-            display: inline-block;
-            padding: 1.2rem 2.5rem;
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: var(--shadow);
-            border: none;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .btn::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: -1;
-        }
-
-        .btn:hover::before {
-            opacity: 1;
-        }
-
-        .btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-        }
-
-        .btn:active {
-            transform: translateY(2px);
-        }
-
-        .btn-quiz {
-            background-color: var(--accent-color);
-        }
-
-        .btn-music {
-            background-color: var(--music-color);
-        }
-
+        
         .footer {
             margin-top: auto;
             padding: 1.5rem 0;
@@ -172,16 +331,12 @@
             width: 100%;
             animation: fadeIn 1.5s ease-in-out;
         }
-
-        .footer p {
-            margin-bottom: 0.5rem;
-        }
-
+        
         .highlight {
             color: var(--secondary-color);
             font-weight: 600;
         }
-
+        
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -192,107 +347,91 @@
                 transform: translateY(0);
             }
         }
-
-        /* Efeito de cordas de guitarra decorativas */
-        .guitar-strings {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .string {
-            position: absolute;
-            top: 0;
-            height: 100%;
-            width: 1px;
-            background: linear-gradient(to bottom, 
-                          transparent, 
-                          rgba(255,255,255,0.15), 
-                          transparent);
-            transform-origin: top center;
-        }
-
-        .string:nth-child(1) { left: 20%; animation: stringAnimation 3s infinite ease-in-out; }
-        .string:nth-child(2) { left: 35%; animation: stringAnimation 3.5s infinite ease-in-out; }
-        .string:nth-child(3) { left: 50%; animation: stringAnimation 4s infinite ease-in-out; }
-        .string:nth-child(4) { left: 65%; animation: stringAnimation 3.7s infinite ease-in-out; }
-        .string:nth-child(5) { left: 80%; animation: stringAnimation 3.2s infinite ease-in-out; }
-
-        @keyframes stringAnimation {
-            0%, 100% { transform: scaleY(1); }
-            50% { transform: scaleY(1.05); }
-        }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .profile h1 {
-                font-size: 3rem;
-            }
-            
-            .profile .subtitle {
-                font-size: 1rem;
-                letter-spacing: 2px;
-            }
-            
-            .btn {
-                padding: 1rem 2rem;
-            }
-            
+        
+        @media (max-width: 900px) {
             :root {
-                --guitar-opacity: 0.2;
+                --carousel-item-size: 140px;
+                --carousel-gap: 1.5rem;
+                --carousel-arrow-size: 50px;
+            }
+            
+            .carousel-wrap {
+                padding: 0 70px;
+            }
+            
+            .profile h1 {
+                font-size: 2.15rem;
             }
         }
-
-        @media (max-width: 480px) {
-            .profile h1 {
-                font-size: 2.2rem;
+        
+        @media (max-width: 600px) {
+            :root {
+                --carousel-item-size: 110px;
+                --carousel-gap: 1rem;
+                --carousel-arrow-size: 40px;
             }
             
-            .profile h1::after {
-                width: 70px;
-                height: 2px;
-            }
-            
-            .profile .subtitle {
-                font-size: 0.9rem;
-                letter-spacing: 1px;
-            }
-            
-            .btn {
-                padding: 0.9rem 1.5rem;
+            .carousel-item {
                 font-size: 1rem;
             }
             
-            .footer {
-                font-size: 0.8rem;
+            .carousel-wrap {
+                padding: 0 50px;
+            }
+            
+            .profile h1 {
+                font-size: 1.45rem;
+            }
+            
+            .btn {
+                padding: 0.55rem 0.7rem;
+                font-size: 0.88rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Efeito decorativo de cordas de guitarra -->
-    <div class="guitar-strings">
-        <div class="string"></div>
-        <div class="string"></div>
-        <div class="string"></div>
-        <div class="string"></div>
-        <div class="string"></div>
-    </div>
-
     <div class="container">
         <div class="profile">
-            <h1>Marco Oliveira</h1>
-            <span class="subtitle"></span>
+            <h1>Marco Antonio</h1>
+            <span class="subtitle">estudante & guitarrista</span>
+        </div>
+        
+        <div class="carousel-zone">
+            <div class="carousel-wrap">
+                <button class="carousel-arrow" id="leftBtn">&#8592;</button>
+                <div class="carousel-list-wrapper">
+                    <div class="carousel-list" id="carouselList">
+                        <div class="carousel-item" data-bg="pessoal"><span>Pessoal</span></div>
+                        <div class="carousel-item" data-bg="musica"><span>Música</span></div>
+                        <div class="carousel-item" data-bg="faculdade"><span>Faculdade</span></div>
+                        <div class="carousel-item" data-bg="outros"><span>Outros</span></div>
+                    </div>
+                </div>
+                <button class="carousel-arrow" id="rightBtn">&#8594;</button>
+            </div>
+            
+            <div class="carousel-buttons-below">
+                <div class="carousel-below-group" data-group="pessoal">
+                    <a href="#" class="btn">Bot1 Quad1</a>
+                    <a href="#" class="btn">Bot2 Quad1</a>
+                </div>
+                <div class="carousel-below-group" data-group="musica">
+                    <a href="#" class="btn btn-music">Bot1 Quad2</a>
+                </div>
+                <div class="carousel-below-group" data-group="faculdade">
+                    <a href="#" class="btn">Bot1 Quad3</a>
+                    <a href="#" class="btn">Bot2 Quad3</a>
+                </div>
+                <div class="carousel-below-group" data-group="outros">
+                    <a href="#" class="btn">Bot1 Quad4</a>
+                </div>
+            </div>
         </div>
         
         <div class="buttons">
             <a href="https://marco30oliv.github.io/quiz" class="btn btn-quiz">Quiz Vigilância</a>
             <a href="https://youtu.be/yNHdPPJGowY?si=Vz3YpTrkVH_sQb0a" class="btn btn-music">Apenas a Melhor Música Já Criada</a>
-            <!-- Espaço para futuros botões -->
         </div>
         
         <div class="footer">
@@ -302,34 +441,90 @@
     </div>
 
     <script>
-        // Efeito de digitação para o título
         document.addEventListener('DOMContentLoaded', function() {
-            const title = document.querySelector('.profile h1');
-            const subtitle = document.querySelector('.profile .subtitle');
-            const originalTitle = title.textContent;
-            const originalSubtitle = subtitle.textContent;
+            const items = Array.from(document.querySelectorAll('.carousel-item'));
+            const belowGroups = document.querySelectorAll('.carousel-below-group');
+            let centerIdx = 1; // Começa com o segundo item centralizado
             
-            title.textContent = '';
-            subtitle.textContent = '';
+            function centerCarousel() {
+                const list = document.getElementById('carouselList');
+                const listWrapper = list.parentElement;
+                const activeItem = items[centerIdx];
+                
+                // Calcula a posição para centralizar o item ativo
+                const wrapperWidth = listWrapper.offsetWidth;
+                const itemWidth = activeItem.offsetWidth;
+                const gap = parseFloat(getComputedStyle(list).gap) || 0;
+                
+                // Posição do item ativo relativa ao início da lista
+                const itemPosition = centerIdx * (itemWidth + gap);
+                
+                // Deslocamento necessário para centralizar o item ativo
+                const offset = itemPosition - (wrapperWidth / 2) + (itemWidth / 2);
+                
+                list.style.transition = 'transform 0.5s cubic-bezier(.77,0,.18,1)';
+                list.style.transform = `translateX(${-offset}px)`;
+                
+                // Ativa o item central
+                items.forEach((item, i) => {
+                    item.classList.toggle('active', i === centerIdx);
+                });
+                
+                belowGroups.forEach(group => {
+                    group.classList.toggle('active', group.dataset.group === items[centerIdx].dataset.bg);
+                });
+            }
+
+            document.getElementById('leftBtn').onclick = () => {
+                centerIdx = (centerIdx - 1 + items.length) % items.length;
+                centerCarousel();
+            };
+
+            document.getElementById('rightBtn').onclick = () => {
+                centerIdx = (centerIdx + 1) % items.length;
+                centerCarousel();
+            };
+
+            // Touch swipe
+            let startX = null;
+            let isDragging = false;
+            let lastTransform = 0;
             
-            let i = 0;
-            const typingTitle = setInterval(() => {
-                if (i < originalTitle.length) {
-                    title.textContent += originalTitle.charAt(i);
-                    i++;
-                } else {
-                    clearInterval(typingTitle);
-                    let j = 0;
-                    const typingSubtitle = setInterval(() => {
-                        if (j < originalSubtitle.length) {
-                            subtitle.textContent += originalSubtitle.charAt(j);
-                            j++;
-                        } else {
-                            clearInterval(typingSubtitle);
-                        }
-                    }, 50);
+            const list = document.getElementById('carouselList');
+            list.addEventListener('touchstart', (e) => {
+                if(e.touches.length !== 1) return;
+                isDragging = true;
+                startX = e.touches[0].clientX;
+                const transform = window.getComputedStyle(list).getPropertyValue('transform');
+                lastTransform = transform !== 'none' ? 
+                    parseFloat(transform.split(',')[4].trim()) : 0;
+            });
+
+            list.addEventListener('touchmove', (e) => {
+                if(!isDragging) return;
+                const delta = e.touches[0].clientX - startX;
+                list.style.transition = 'none';
+                list.style.transform = `translateX(${lastTransform + delta}px)`;
+            });
+
+            list.addEventListener('touchend', (e) => {
+                if(!isDragging) return;
+                isDragging = false;
+                
+                const delta = (e.changedTouches[0].clientX - startX);
+                if (Math.abs(delta) > 40) {
+                    if (delta < 0) {
+                        centerIdx = Math.min(centerIdx + 1, items.length - 1);
+                    } else {
+                        centerIdx = Math.max(centerIdx - 1, 0);
+                    }
                 }
-            }, 100);
+                centerCarousel();
+            });
+
+            // Inicializa com o item central
+            centerCarousel();
+            window.addEventListener('resize', centerCarousel);
         });
     </script>
 </body>
