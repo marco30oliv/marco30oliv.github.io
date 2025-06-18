@@ -19,8 +19,9 @@
             --carousel-gap: 2rem;
             --carousel-arrow-size: 60px;
             --focus-scale: 1.1;
+            --blue-vibrant: #3a86ff;
         }
-        
+
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--primary-color);
@@ -31,7 +32,7 @@
             margin: 0;
             padding: 0;
         }
-        
+
         body::before {
             content: "";
             position: fixed;
@@ -47,7 +48,7 @@
             z-index: -1;
             filter: grayscale(20%) contrast(110%) brightness(90%);
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -59,7 +60,7 @@
             align-items: center;
             text-align: center;
         }
-        
+
         .profile {
             margin-bottom: 2rem;
             animation: fadeIn 1s ease-in-out;
@@ -69,7 +70,7 @@
             justify-content: center;
             align-items: center;
         }
-        
+
         .profile h1 {
             font-family: 'Playfair Display', serif;
             font-size: 2.95rem;
@@ -82,7 +83,7 @@
             white-space: nowrap;
             line-height: 1.1;
         }
-        
+
         .profile h1::after {
             content: "";
             position: absolute;
@@ -93,7 +94,7 @@
             height: 3px;
             background: linear-gradient(to right, transparent, var(--secondary-color), transparent);
         }
-        
+
         .profile .subtitle {
             font-size: 1.1rem;
             font-weight: 300;
@@ -102,16 +103,15 @@
             margin-top: 2rem;
             color: rgba(255,255,255,0.8);
         }
-        
-        /* Carrossel */
+
         .carousel-zone {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 3rem; /* Aumentei esta margem para descer o botão Instagram */
             width: 100%;
         }
-        
+
         .carousel-wrap {
             display: flex;
             align-items: center;
@@ -121,7 +121,7 @@
             position: relative;
             padding: 0 80px;
         }
-        
+
         .carousel-arrow {
             background: rgba(0,0,0,0.25);
             border: none;
@@ -141,21 +141,21 @@
             position: absolute;
             border: 2px solid rgba(255,255,255,0.2);
         }
-        
+
         .carousel-arrow:hover { 
             background: rgba(0,0,0,0.4);
             transform: scale(1.05);
             border-color: rgba(255,255,255,0.4);
         }
-        
+
         #leftBtn {
             left: 10px;
         }
-        
+
         #rightBtn {
             right: 10px;
         }
-        
+
         .carousel-list-wrapper {
             overflow: hidden;
             width: 100%;
@@ -164,7 +164,7 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .carousel-list {
             display: flex;
             align-items: center;
@@ -174,7 +174,7 @@
             padding: 20px 0;
             touch-action: pan-x;
         }
-        
+
         .carousel-item {
             width: var(--carousel-item-size);
             height: var(--carousel-item-size);
@@ -200,7 +200,7 @@
             background-color: #222;
             overflow: hidden;
         }
-        
+
         .carousel-item::before {
             content: '';
             position: absolute;
@@ -210,14 +210,14 @@
             bottom: 0;
             background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
         }
-        
+
         .carousel-item span {
             position: relative;
             z-index: 1;
             margin-bottom: 15px;
             text-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
-        
+
         .carousel-item.active {
             opacity: 1;
             transform: scale(var(--focus-scale));
@@ -225,23 +225,23 @@
             border: 3px solid var(--secondary-color);
             z-index: 3;
         }
-        
+
         .carousel-item[data-bg="pessoal"] {
             background-image: url('https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80');
         }
-        
+
         .carousel-item[data-bg="musica"] {
             background-image: url('https://images.unsplash.com/photo-1511376777868-611b54f68947?auto=format&fit=crop&w=400&q=80');
         }
-        
+
         .carousel-item[data-bg="faculdade"] {
             background-image: url('https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=400&q=80');
         }
-        
+
         .carousel-item[data-bg="outros"] {
             background-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80');
         }
-        
+
         .carousel-buttons-below {
             min-height: 56px;
             margin-bottom: 2.5rem;
@@ -251,7 +251,7 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .carousel-below-group {
             display: none;
             flex-direction: column;
@@ -259,11 +259,11 @@
             gap: 1rem;
             animation: fadeIn .6s;
         }
-        
+
         .carousel-below-group.active {
             display: flex;
         }
-        
+
         .btn {
             display: inline-block;
             padding: 1.1rem 2.4rem;
@@ -282,20 +282,23 @@
             overflow: hidden;
             background: var(--accent-color);
         }
-        
-        .btn.btn-music {
-            background: var(--music-color);
+
+        .btn-pessoal,
+        .btn-music,
+        .btn-faculdade,
+        .btn-outros {
+            background: var(--blue-vibrant) !important;
         }
-        
+
         .btn:active {
             transform: translateY(2px);
         }
-        
+
         .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 22px rgba(0,0,0,0.37);
         }
-        
+
         .btn::before {
             content: "";
             position: absolute;
@@ -308,20 +311,20 @@
             transition: opacity 0.33s;
             z-index: -1;
         }
-        
+
         .btn:hover::before {
             opacity: 1;
         }
-        
+
         .buttons {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
             width: 100%;
             max-width: 400px;
-            margin-bottom: 3rem;
+            margin-bottom: 5rem; /* Aumentei esta margem para descer o botão Instagram */
         }
-        
+
         .footer {
             margin-top: auto;
             padding: 1.5rem 0;
@@ -331,12 +334,12 @@
             width: 100%;
             animation: fadeIn 1.5s ease-in-out;
         }
-        
+
         .highlight {
             color: var(--secondary-color);
             font-weight: 600;
         }
-        
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -347,42 +350,42 @@
                 transform: translateY(0);
             }
         }
-        
+
         @media (max-width: 900px) {
             :root {
                 --carousel-item-size: 140px;
                 --carousel-gap: 1.5rem;
                 --carousel-arrow-size: 50px;
             }
-            
+
             .carousel-wrap {
                 padding: 0 70px;
             }
-            
+
             .profile h1 {
                 font-size: 2.15rem;
             }
         }
-        
+
         @media (max-width: 600px) {
             :root {
                 --carousel-item-size: 110px;
                 --carousel-gap: 1rem;
                 --carousel-arrow-size: 40px;
             }
-            
+
             .carousel-item {
                 font-size: 1rem;
             }
-            
+
             .carousel-wrap {
                 padding: 0 50px;
             }
-            
+
             .profile h1 {
                 font-size: 1.45rem;
             }
-            
+
             .btn {
                 padding: 0.55rem 0.7rem;
                 font-size: 0.88rem;
@@ -396,7 +399,7 @@
             <h1>Marco Oliveira</h1>
             <span class="subtitle">estudante & guitarrista nas horas vagas</span>
         </div>
-        
+
         <div class="carousel-zone">
             <div class="carousel-wrap">
                 <button class="carousel-arrow" id="leftBtn">&#8592;</button>
@@ -410,32 +413,31 @@
                 </div>
                 <button class="carousel-arrow" id="rightBtn">&#8594;</button>
             </div>
-            
+
             <div class="carousel-buttons-below">
                 <div class="carousel-below-group" data-group="pessoal">
-                    <a href="https://photos.app.goo.gl/D84Vnx7s7Ym8srck8" class="btn">Viagem legal</a>
-                    <a href="#" class="btn">A2</a>
+                    <a href="https://photos.app.goo.gl/D84Vnx7s7Ym8srck8" class="btn btn-pessoal">Viagem legal</a>
+                    <a href="#" class="btn btn-pessoal">A2</a>
                 </div>
-               <div class="carousel-below-group" data-group="musica">
-    <a href="https://photos.app.goo.gl/hmXNZEPoCq3EC1wP7" class="btn btn-music">tocando "all the young dudes" na guitarra</a>
-    <a href="https://photos.app.goo.gl/DUREJrgCDnM4vqXh6" class="btn btn-music">tocando "cartola" com mãe</a>
-</div>
+                <div class="carousel-below-group" data-group="musica">
+                    <a href="https://photos.app.goo.gl/hmXNZEPoCq3EC1wP7" class="btn btn-music">tocando "all the young dudes" na guitarra</a>
+                    <a href="https://photos.app.goo.gl/DUREJrgCDnM4vqXh6" class="btn btn-music">tocando "cartola" com mãe</a>
+                </div>
                 <div class="carousel-below-group" data-group="faculdade">
-                    <a href="https://marco30oliv.github.io/quiz" class="btn">Quiz Vigilância em saúde</a>
-                    <a href="#" class="btn">C2</a>
+                    <a href="https://marco30oliv.github.io/quiz" class="btn btn-faculdade">Quiz Vigilância em saúde</a>
+                    <a href="#" class="btn btn-faculdade">C2</a>
                 </div>
                 <div class="carousel-below-group" data-group="outros">
-                    <a href="#" class="btn">D1</a>
-                    <a href="#" class="btn">D2</a>
+                    <a href="#" class="btn btn-outros">D1</a>
+                    <a href="#" class="btn btn-outros">D2</a>
                 </div>
             </div>
         </div>
-        
+
         <div class="buttons">
-            <a href="https://www.instagram.com/marco.antonio.30?igsh=MzUxZmhuN3kydHQ3" class="btn btn-quiz">Instagram</a>
-            <a href="https://youtu.be/yNHdPPJGowY?si=Vz3YpTrkVH_sQb0a" class="btn btn-music">Link da Melhor Música Do Mundo</a>
+            <a href="https://www.instagram.com/marco.antonio.30?igsh=MzUxZmhuN3kydHQ3" class="btn">Instagram</a>
         </div>
-        
+
         <div class="footer">
             <p>Estudante de Medicina pela <span class="highlight">Universidade Federal de Rondônia</span></p>
             <p>Focado no essencial</p>
@@ -447,31 +449,31 @@
             const items = Array.from(document.querySelectorAll('.carousel-item'));
             const belowGroups = document.querySelectorAll('.carousel-below-group');
             let centerIdx = 1; // Começa com o segundo item centralizado
-            
+
             function centerCarousel() {
                 const list = document.getElementById('carouselList');
                 const listWrapper = list.parentElement;
                 const activeItem = items[centerIdx];
-                
+
                 // Calcula a posição para centralizar o item ativo
                 const wrapperWidth = listWrapper.offsetWidth;
                 const itemWidth = activeItem.offsetWidth;
                 const gap = parseFloat(getComputedStyle(list).gap) || 0;
-                
+
                 // Posição do item ativo relativa ao início da lista
                 const itemPosition = centerIdx * (itemWidth + gap);
-                
+
                 // Deslocamento necessário para centralizar o item ativo
                 const offset = itemPosition - (wrapperWidth / 2) + (itemWidth / 2);
-                
+
                 list.style.transition = 'transform 0.5s cubic-bezier(.77,0,.18,1)';
                 list.style.transform = `translateX(${-offset}px)`;
-                
+
                 // Ativa o item central
                 items.forEach((item, i) => {
                     item.classList.toggle('active', i === centerIdx);
                 });
-                
+
                 belowGroups.forEach(group => {
                     group.classList.toggle('active', group.dataset.group === items[centerIdx].dataset.bg);
                 });
@@ -491,7 +493,7 @@
             let startX = null;
             let isDragging = false;
             let lastTransform = 0;
-            
+
             const list = document.getElementById('carouselList');
             list.addEventListener('touchstart', (e) => {
                 if(e.touches.length !== 1) return;
@@ -512,7 +514,7 @@
             list.addEventListener('touchend', (e) => {
                 if(!isDragging) return;
                 isDragging = false;
-                
+
                 const delta = (e.changedTouches[0].clientX - startX);
                 if (Math.abs(delta) > 40) {
                     if (delta < 0) {
