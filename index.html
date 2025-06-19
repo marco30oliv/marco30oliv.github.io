@@ -421,7 +421,18 @@
                 </div>
             </div>
             <div class="carousel-below-group" data-group="musica">
-                <a href="https://drive.google.com/file/d/1AEBCw5UN5UymMUT2nx6mGzKqAFgexC0Q/view?usp=sharing" class="btn btn-music">tocando "all the young dudes" na guitarra</a>
+                
+<a href="#" class="btn btn-music" id="allDudesBtn">tocando "all the young dudes" na guitarra</a>
+<div id="allDudesVideo" style="display: none; margin-top: 1.2rem;">
+    <iframe
+        src="https://drive.google.com/file/d/1AEBCw5UN5UymMUT2nx6mGzKqAFgexC0Q/preview"
+        width="640"
+        height="360"
+        allow="autoplay"
+        style="border:none; border-radius:10px; max-width: 90vw; box-shadow:0 4px 14px rgba(0,0,0,0.32);">
+    </iframe>
+</div>
+
                 <a href="https://photos.app.goo.gl/DUREJrgCDnM4vqXh6" class="btn btn-music">tocando "cartola" com mãe</a>
                 <a href="https://photos.app.goo.gl/7F3BrY9ss5y7ETrGA" class="btn btn-music">música tema de "scott pilgrim contra o mundo" na guitarra</a>
                 <a href="https://photos.app.goo.gl/vFzCwpG7LuJ54w6p8" class="btn btn-music">tocando a melhor de "Arctic Monkeys" na guitarra</a>
@@ -518,6 +529,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
     centerCarousel();
     window.addEventListener('resize', centerCarousel);
+
+    // TOGGLE PLAYER "ALL THE YOUNG DUDES"
+    const allDudesBtn = document.getElementById('allDudesBtn');
+    const allDudesVideo = document.getElementById('allDudesVideo');
+    if (allDudesBtn && allDudesVideo) {
+        allDudesBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (allDudesVideo.style.display === "none") {
+                allDudesVideo.style.display = "block";
+                allDudesVideo.style.opacity = 0;
+                setTimeout(() => {
+                    allDudesVideo.style.transition = "opacity 0.4s";
+                    allDudesVideo.style.opacity = 1;
+                }, 20);
+            } else {
+                allDudesVideo.style.transition = "opacity 0.3s";
+                allDudesVideo.style.opacity = 0;
+                setTimeout(() => {
+                    allDudesVideo.style.display = "none";
+                }, 300);
+            }
+        });
+    }
+
 
     const familiaBtn = document.getElementById('familiaBtn');
     const familiaFoto = document.getElementById('familiaFoto');
