@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -27,527 +28,654 @@
             --carousel-arrow-size: 60px;
             --focus-scale: 1.1;
             --blue-vibrant: #3a86ff;
-        }body {
-        font-family: 'Montserrat', sans-serif;
-        background-color: var(--primary-color);
-        color: var(--text-color);
-        min-height: 100vh;
-        position: relative;
-        overflow-x: hidden;
-        margin: 0;
-        padding: 0;
-    }
-
-    body::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQT2BaMrB6GOguoqEXKmaQnJIwIiTqdLwemAjy1Qw4UyrtXJCLCpzXxLw&s=10');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        opacity: 0.25;
-        z-index: -1;
-        filter: grayscale(20%) contrast(110%) brightness(90%);
-    }
-
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-
-    .profile {
-        margin-bottom: 2rem;
-        animation: fadeIn 1s ease-in-out;
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .profile h1 {
-        font-family: 'Playfair Display', serif;
-        font-size: 2.95rem;
-        margin-bottom: 0.7rem;
-        color: var(--text-color);
-        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
-        letter-spacing: 1px;
-        position: relative;
-        display: inline-block;
-        white-space: nowrap;
-        line-height: 1.1;
-    }
-
-    .profile h1::after {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100px;
-        height: 3px;
-        background: linear-gradient(to right, transparent, var(--secondary-color), transparent);
-    }
-
-    .profile .subtitle {
-        font-size: 1.1rem;
-        font-weight: 300;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        margin-top: 2rem;
-        color: rgba(255,255,255,0.8);
-    }
-
-    .carousel-zone {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 3rem; /* Aumentei esta margem para descer o botão Instagram */
-        width: 100%;
-    }
-
-    .carousel-wrap {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        min-width: 280px;
-        position: relative;
-        padding: 0 80px;
-    }
-
-    .carousel-arrow {
-        background: rgba(0,0,0,0.25);
-        border: none;
-        color: #fff;
-        border-radius: 50%;
-        width: var(--carousel-arrow-size);
-        height: var(--carousel-arrow-size);
-        min-width: var(--carousel-arrow-size);
-        min-height: var(--carousel-arrow-size);
-        font-size: 2.4rem;
-        cursor: pointer;
-        transition: all .3s;
-        z-index: 2;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        border: 2px solid rgba(255,255,255,0.2);
-    }
-
-    .carousel-arrow:hover {
-        background: rgba(0,0,0,0.4);
-        transform: scale(1.05);
-        border-color: rgba(255,255,255,0.4);
-    }
-
-    #leftBtn {
-        left: 10px;
-    }
-
-    #rightBtn {
-        right: 10px;
-    }
-
-    .carousel-list-wrapper {
-        overflow: hidden;
-        width: 100%;
-        max-width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .carousel-list {
-        display: flex;
-        align-items: center;
-        gap: var(--carousel-gap);
-        transition: transform 0.5s cubic-bezier(.77,0,.18,1);
-        will-change: transform;
-        padding: 20px 0;
-        touch-action: pan-x;
-    }
-
-    .carousel-item {
-        width: var(--carousel-item-size);
-        height: var(--carousel-item-size);
-        min-width: var(--carousel-item-size);
-        min-height: var(--carousel-item-size);
-        border-radius: 20px;
-        background-size: cover;
-        background-position: center;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        color: #fff;
-        font-weight: 700;
-        font-size: 1.3rem;
-        opacity: 0.7;
-        transition:
-            box-shadow .3s,
-            opacity .4s,
-            transform .4s cubic-bezier(.6,.6,0,1);
-        position: relative;
-        border: 3px solid transparent;
-        background-color: #222;
-        overflow: hidden;
-    }
-
-    .carousel-item::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
-    }
-
-    .carousel-item span {
-        position: relative;
-        z-index: 1;
-        margin-bottom: 15px;
-        text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-    }
-
-    .carousel-item.active {
-        opacity: 1;
-        transform: scale(var(--focus-scale));
-        box-shadow: 0 8px 25px 4px rgba(0,0,0,0.3);
-        border: 3px solid var(--secondary-color);
-        z-index: 3;
-    }
-
-    .carousel-item[data-bg="pessoal"] {
-        background-image: url('https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80');
-    }
-
-    .carousel-item[data-bg="musica"] {
-        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7WYboA4Hah4jDWxB00oQf30YrBbZydO7-5A&s');
-    }
-
-    .carousel-item[data-bg="faculdade"] {
-        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCzbz_zmQie3Ayws0rnaDxFCSH6TUdEGjhvajtnjBrjK8HotMOzOr0SK4&s=10');
-    }
-
-    .carousel-item[data-bg="outros"] {
-        background-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80');
-    }
-
-    .carousel-buttons-below {
-        min-height: 56px;
-        margin-bottom: 2.5rem;
-        margin-top: 2.7rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .carousel-below-group {
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-        animation: fadeIn .6s;
-    }
-
-    .carousel-below-group.active {
-        display: flex;
-    }
-
-    .btn {
-        display: inline-block;
-        padding: 1.1rem 2.4rem;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 50px;
-        font-weight: 600;
-        font-size: 1.06rem;
-        transition: all 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        box-shadow: var(--shadow);
-        border: none;
-        cursor: pointer;
-        text-transform: uppercase;
-        letter-spacing: 1.4px;
-        position: relative;
-        overflow: hidden;
-        background: var(--accent-color);
-    }
-
-    .btn-pessoal,
-    .btn-music,
-    .btn-faculdade,
-    .btn-outros {
-        background: var(--blue-vibrant) !important;
-    }
-
-    .btn:active {
-        transform: translateY(2px);
-    }
-
-    .btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 22px rgba(0,0,0,0.37);
-    }
-
-    .btn::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(rgba(255,255,255,0.08), rgba(255,255,255,0));
-        opacity: 0;
-        transition: opacity 0.33s;
-        z-index: -1;
-    }
-
-    .btn:hover::before {
-        opacity: 1;
-    }
-
-    .buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        width: 100%;
-        max-width: 400px;
-        margin-bottom: 5rem; /* Aumentei esta margem para descer o botão Instagram */
-    }
-
-    .footer {
-        margin-top: auto;
-        padding: 1.5rem 0;
-        font-size: 0.9rem;
-        color: rgba(255,255,255,0.7);
-        border-top: 1px solid rgba(255,255,255,0.1);
-        width: 100%;
-        animation: fadeIn 1.5s ease-in-out;
-    }
-
-    .highlight {
-        color: var(--secondary-color);
-        font-weight: 600;
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @media (max-width: 900px) {
-        :root {
-            --carousel-item-size: 140px;
-            --carousel-gap: 1.5rem;
-            --carousel-arrow-size: 50px;
         }
 
-        .carousel-wrap {
-            padding: 0 70px;
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQT2BaMrB6GOguoqEXKmaQnJIwIiTqdLwemAjy1Qw4UyrtXJCLCpzXxLw&s=10');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.25;
+            z-index: -1;
+            filter: grayscale(20%) contrast(110%) brightness(90%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .profile {
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease-in-out;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .profile h1 {
-            font-size: 2.15rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.95rem;
+            margin-bottom: 0.7rem;
+            color: var(--text-color);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+            white-space: nowrap;
+            line-height: 1.1;
         }
-    }
 
-    @media (max-width: 600px) {
-        :root {
-            --carousel-item-size: 110px;
-            --carousel-gap: 1rem;
-            --carousel-arrow-size: 40px;
+        .profile h1::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--secondary-color), transparent);
+        }
+
+        .profile .subtitle {
+            font-size: 1.1rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 2rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .carousel-zone {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 3rem;
+            width: 100%;
+        }
+
+        .carousel-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-width: 280px;
+            position: relative;
+            padding: 0 80px;
+        }
+
+        .carousel-arrow {
+            background: rgba(0,0,0,0.25);
+            border: none;
+            color: #fff;
+            border-radius: 50%;
+            width: var(--carousel-arrow-size);
+            height: var(--carousel-arrow-size);
+            min-width: var(--carousel-arrow-size);
+            min-height: var(--carousel-arrow-size);
+            font-size: 2.4rem;
+            cursor: pointer;
+            transition: all .3s;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .carousel-arrow:hover {
+            background: rgba(0,0,0,0.4);
+            transform: scale(1.05);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        #leftBtn {
+            left: 10px;
+        }
+
+        #rightBtn {
+            right: 10px;
+        }
+
+        .carousel-list-wrapper {
+            overflow: hidden;
+            width: 100%;
+            max-width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-list {
+            display: flex;
+            align-items: center;
+            gap: var(--carousel-gap);
+            transition: transform 0.5s cubic-bezier(.77,0,.18,1);
+            will-change: transform;
+            padding: 20px 0;
+            touch-action: pan-x;
         }
 
         .carousel-item {
-            font-size: 1rem;
+            width: var(--carousel-item-size);
+            height: var(--carousel-item-size);
+            min-width: var(--carousel-item-size);
+            min-height: var(--carousel-item-size);
+            border-radius: 20px;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.3rem;
+            opacity: 0.7;
+            transition:
+                box-shadow .3s,
+                opacity .4s,
+                transform .4s cubic-bezier(.6,.6,0,1);
+            position: relative;
+            border: 3px solid transparent;
+            background-color: #222;
+            overflow: hidden;
         }
 
-        .carousel-wrap {
-            padding: 0 50px;
+        .carousel-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
         }
 
-        .profile h1 {
-            font-size: 1.45rem;
+        .carousel-item span {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .carousel-item.active {
+            opacity: 1;
+            transform: scale(var(--focus-scale));
+            box-shadow: 0 8px 25px 4px rgba(0,0,0,0.3);
+            border: 3px solid var(--secondary-color);
+            z-index: 3;
+        }
+
+        .carousel-item[data-bg="pessoal"] {
+            background-image: url('https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .carousel-item[data-bg="musica"] {
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7WYboA4Hah4jDWxB00oQf30YrBbZydO7-5A&s');
+        }
+
+        .carousel-item[data-bg="faculdade"] {
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCzbz_zmQie3Ayws0rnaDxFCSH6TUdEGjhvajtnjBrjK8HotMOzOr0SK4&s=10');
+        }
+
+        .carousel-item[data-bg="outros"] {
+            background-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .carousel-buttons-below {
+            min-height: 56px;
+            margin-bottom: 2.5rem;
+            margin-top: 2.7rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-below-group {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            animation: fadeIn .6s;
+        }
+
+        .carousel-below-group.active {
+            display: flex;
         }
 
         .btn {
-            padding: 0.55rem 0.7rem;
-            font-size: 0.88rem;
+            display: inline-block;
+            padding: 1.1rem 2.4rem;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.06rem;
+            transition: all 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: var(--shadow);
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            position: relative;
+            overflow: hidden;
+            background: var(--accent-color);
         }
-    }
-</style>
 
+        .btn-pessoal,
+        .btn-music,
+        .btn-faculdade,
+        .btn-outros {
+            background: var(--blue-vibrant) !important;
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 22px rgba(0,0,0,0.37);
+        }
+
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255,255,255,0.08), rgba(255,255,255,0));
+            opacity: 0;
+            transition: opacity 0.33s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+        }
+        
+        .buttons .btn {
+        	padding: 0.8rem 1.8rem;
+            font-size: 0.95rem;
+            max-width: 260px;
+            margin: 0 auto;
+        }
+        
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding: 1rem 0;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            width: 100%;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .highlight {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        .video-container {
+            display: none;
+            margin-top: 1.2rem;
+            transition: all 0.3s ease;
+            width: auto;
+            max-width: 100%;
+        }
+
+        .video-container iframe {
+            width: auto;
+            height: 360px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.32);
+        }
+
+        .video-title {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 900px) {
+            :root {
+                --carousel-item-size: 140px;
+                --carousel-gap: 1.5rem;
+                --carousel-arrow-size: 50px;
+            }
+
+            .carousel-wrap {
+                padding: 0 70px;
+            }
+
+            .profile h1 {
+                font-size: 2.15rem;
+            }
+
+            .video-container iframe {
+                height: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            :root {
+                --carousel-item-size: 110px;
+                --carousel-gap: 1rem;
+                --carousel-arrow-size: 40px;
+            }
+
+            .carousel-item {
+                font-size: 1rem;
+            }
+
+            .carousel-wrap {
+                padding: 0 50px;
+            }
+
+            .profile h1 {
+                font-size: 1.45rem;
+            }
+
+            .btn {
+                padding: 0.55rem 0.7rem;
+                font-size: 0.88rem;
+            }
+
+            .video-container iframe {
+                height: none;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="profile">
             <h1>Marco Oliveira</h1>
             <span class="subtitle">estudante & guitarrista nas horas vagas</span>
-        </div><div class="carousel-zone">
-        <div class="carousel-wrap">
-            <button class="carousel-arrow" id="leftBtn">&#8592;</button>
-            <div class="carousel-list-wrapper">
-                <div class="carousel-list" id="carouselList">
-                    <div class="carousel-item" data-bg="pessoal"><span>Pessoal</span></div>
-                    <div class="carousel-item" data-bg="musica"><span>Música</span></div>
-                    <div class="carousel-item" data-bg="faculdade"><span>Faculdade</span></div>
-                    <div class="carousel-item" data-bg="outros"><span>Outros</span></div>
-                </div>
-            </div>
-            <button class="carousel-arrow" id="rightBtn">&#8594;</button>
         </div>
 
-        <div class="carousel-buttons-below">
-            <div class="carousel-below-group" data-group="pessoal">
-                <a href="https://photos.app.goo.gl/D84Vnx7s7Ym8srck8" class="btn btn-pessoal">Viagem legal</a>
-                <a href="#" class="btn btn-pessoal" id="familiaBtn">Família</a>
-                <div id="familiaFoto" style="display: none; margin-top: 1.2rem;">
-                    <img src="https://marco30oliv.github.io/lilianoliveiraap3_20241225_p_3530861998906155906_2_3530861989460650851.webp"
-                        alt="Família"
-                        style="max-width: 260px; border-radius: 20px; box-shadow: 0 4px 14px rgba(0,0,0,0.32);">
+        <div class="carousel-zone">
+            <div class="carousel-wrap">
+                <button class="carousel-arrow" id="leftBtn">&#8592;</button>
+                <div class="carousel-list-wrapper">
+                    <div class="carousel-list" id="carouselList">
+                        <div class="carousel-item" data-bg="pessoal"><span>Pessoal</span></div>
+                        <div class="carousel-item" data-bg="musica"><span>Música</span></div>
+                        <div class="carousel-item" data-bg="faculdade"><span>Faculdade</span></div>
+                        <div class="carousel-item" data-bg="outros"><span>Outros</span></div>
+                    </div>
+                </div>
+                <button class="carousel-arrow" id="rightBtn">&#8594;</button>
+            </div>
+
+            <div class="carousel-buttons-below">
+                <div class="carousel-below-group" data-group="pessoal">
+                    <a href="https://photos.app.goo.gl/D84Vnx7s7Ym8srck8" class="btn btn-pessoal">Viagem legal</a>
+                    <a href="#" class="btn btn-pessoal" id="familiaBtn">Família</a>
+                    <div id="familiaFoto" style="display: none; margin-top: 1.2rem;">
+                        <img src="https://marco30oliv.github.io/lilianoliveiraap3_20241225_p_3530861998906155906_2_3530861989460650851.webp"
+                            alt="Família"
+                            style="max-width: 260px; border-radius: 20px; box-shadow: 0 4px 14px rgba(0,0,0,0.32);">
+                    </div>
+                </div>
+                <div class="carousel-below-group" data-group="musica">
+                    <!-- All The Young Dudes -->
+                    <a href="#" class="btn btn-music" id="allDudesBtn">tocando "all the young dudes" na guitarra</a>
+                    <div id="allDudesVideo" class="video-container">
+                        <div class="video-title">All The Young Dudes - Guitar Cover</div>
+                        <iframe data-src="https://marco30oliv.github.io/all%20the%20young.mp4"></iframe>
+                    </div>
+
+                    <!-- Scott Pilgrim -->
+                    <a href="#" class="btn btn-music" id="scottPilgrimBtn">música tema de "scott pilgrim contra o mundo" na guitarra</a>
+                    <div id="scottPilgrimVideo" class="video-container">
+                        <div class="video-title">Scott Pilgrim Theme - Guitar Cover</div>
+                        <iframe data-src="https://drive.google.com/file/d/1jMErYu6VFnXylsE7F8TnjdX_i5UABmnu/preview"></iframe>
+                    </div>
+
+                    <!-- Nirvana -->
+                    <a href="#" class="btn btn-music" id="nirvanaBtn">Tocando "nirvana" na guitarra (video antigo)</a>
+                    <div id="nirvanaVideo" class="video-container">
+                        <div class="video-title">Nirvana - Guitar Cover</div>
+                        <iframe data-src="https://marco30oliv.github.io/nirvana.mp4"></iframe>
+                    </div>
+
+                    <!-- Guns N' Roses -->
+                    <a href="#" class="btn btn-music" id="gunsBtn">tocando "guns n' roses" na guitarra (errei 90% da musica, video antigo)</a>
+                    <div id="gunsVideo" class="video-container">
+                        <div class="video-title">Guns N' Roses - Guitar Cover</div>
+                        <iframe data-src="https://marco30oliv.github.io/guns%20n%20roses.mp4"></iframe>
+                    </div>
+
+                    <!-- Cartola -->
+                    <a href="#" class="btn btn-music" id="cartolaBtn">tocando "cartola" com mãe</a>
+                    <div id="cartolaVideo" class="video-container">
+                        <div class="video-title">Cartola - Guitar Cover with Mom</div>
+                        <iframe data-src="https://marco30oliv.github.io/cartola.mp4"></iframe>
+                    </div>
+
+                    <!-- Arctic Monkeys -->
+                    <a href="#" class="btn btn-music" id="arcticBtn">tocando a melhor de "Arctic Monkeys" na guitarra</a>
+                    <div id="arcticVideo" class="video-container">
+                        <div class="video-title">Arctic Monkeys - Guitar Cover</div>
+                        <iframe data-src="https://marco30oliv.github.io/arctic%20monkeys.mp4"></iframe>
+                    </div>
+
+                    <!-- Aerosmith -->
+                    <a href="#" class="btn btn-music" id="aerosmithBtn">tocando "aerosmith" na bateria (tomei muito energético nesse dia)</a>
+                    <div id="aerosmithVideo" class="video-container">
+                        <div class="video-title">Aerosmith - Drums Cover</div>
+                        <iframe data-src="https://marco30oliv.github.io/aerosmith_001_001.mp4"></iframe>
+                    </div>
+                </div>
+
+                <div class="carousel-below-group" data-group="faculdade">
+                    <a href="https://marco30oliv.github.io/quiz" class="btn btn-faculdade">Quiz Vigilância em saúde</a>
+                    <a href="https://marco30oliv.github.io/DOC-20250526-WA0017.html" class="btn btn-faculdade">Resumo Semiologia Cardíaca</a>
+                </div>
+
+                <div class="carousel-below-group" data-group="outros">
+                    <a href="#" class="btn btn-outros">D1</a>
+                    <a href="#" class="btn btn-outros">D2</a>
                 </div>
             </div>
-            <div class="carousel-below-group" data-group="musica">
-                <a href="https://drive.google.com/file/d/1AEBCw5UN5UymMUT2nx6mGzKqAFgexC0Q/view?usp=sharing" class="btn btn-music">tocando "all the young dudes" na guitarra</a>
-                <a href="https://photos.app.goo.gl/DUREJrgCDnM4vqXh6" class="btn btn-music">tocando "cartola" com mãe</a>
-                <a href="https://photos.app.goo.gl/7F3BrY9ss5y7ETrGA" class="btn btn-music">música tema de "scott pilgrim contra o mundo" na guitarra</a>
-                <a href="https://photos.app.goo.gl/vFzCwpG7LuJ54w6p8" class="btn btn-music">tocando a melhor de "Arctic Monkeys" na guitarra</a>
-                <a href="https://photos.app.goo.gl/BH2g92ViwWigCKvY9" class="btn btn-music">Tocando "nirvana" na guitarra (video antigo)</a>
-                <a href="https://photos.app.goo.gl/66jGX1pvrFxQ1j126" class="btn btn-music">tocando "aerosmith" na bateria (tomei muito energético nesse dia)</a> <a href="https://photos.app.goo.gl/6HHZNDMnuxGifFFk9" class="btn btn-music">tocando "guns n' roses" na guitarra (errei 90% da musica, video antigo)</a>
-</div>
-<div class="carousel-below-group" data-group="faculdade">
-    <a href="https://marco30oliv.github.io/quiz" class="btn btn-faculdade">Quiz Vigilância em saúde</a>
-    <a href="https://marco30oliv.github.io/DOC-20250526-WA0017.html" class="btn btn-faculdade">Resumo Semiologia Cardíaca</a>
-</div>
-<div class="carousel-below-group" data-group="outros">
-    <a href="#" class="btn btn-outros">D1</a>
-    <a href="#" class="btn btn-outros">D2</a>
-</div>
-</div>
-</div><div class="buttons">
-    <a href="https://www.instagram.com/marco.antonio.30?igsh=MzUxZmhuN3kydHQ3" class="btn">Instagram</a>
-</div><div class="footer">
-    <p>Estudante de Medicina pela <span class="highlight">Universidade Federal de Rondônia</span></p>
-    <p>Focado no essencial</p>
-</div>
-</div><script>
-document.addEventListener('DOMContentLoaded', function() {
-    const items = Array.from(document.querySelectorAll('.carousel-item'));
-    const belowGroups = document.querySelectorAll('.carousel-below-group');
-    let centerIdx = 1;
+        </div>
 
-    function centerCarousel() {
-        const list = document.getElementById('carouselList');
-        const listWrapper = list.parentElement;
-        const activeItem = items[centerIdx];
+        <div class="buttons">
+            <a href="https://www.instagram.com/marco.antonio.30?igsh=MzUxZmhuN3kydHQ3" class="btn">Instagram</a>
+        </div>
 
-        const wrapperWidth = listWrapper.offsetWidth;
-        const itemWidth = activeItem.offsetWidth;
-        const gap = parseFloat(getComputedStyle(list).gap) || 0;
-        const itemPosition = centerIdx * (itemWidth + gap);
-        const offset = itemPosition - (wrapperWidth / 2) + (itemWidth / 2);
+        <div class="footer">
+            <p>Estudante de Medicina pela <span class="highlight">Universidade Federal de Rondônia</span></p>
+            <p>Focado no essencial</p>
+        </div>
+    </div>
 
-        list.style.transition = 'transform 0.5s cubic-bezier(.77,0,.18,1)';
-        list.style.transform = `translateX(${-offset}px)`;
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const items = Array.from(document.querySelectorAll('.carousel-item'));
+            const belowGroups = document.querySelectorAll('.carousel-below-group');
+            let centerIdx = 1;
 
-        items.forEach((item, i) => {
-            item.classList.toggle('active', i === centerIdx);
-        });
+            // Centralizar carousel
+            function centerCarousel() {
+                const list = document.getElementById('carouselList');
+                const listWrapper = list.parentElement;
+                const activeItem = items[centerIdx];
 
-        belowGroups.forEach(group => {
-            group.classList.toggle('active', group.dataset.group === items[centerIdx].dataset.bg);
-        });
-    }
+                const wrapperWidth = listWrapper.offsetWidth;
+                const itemWidth = activeItem.offsetWidth;
+                const gap = parseFloat(getComputedStyle(list).gap) || 0;
+                const itemPosition = centerIdx * (itemWidth + gap);
+                const offset = itemPosition - (wrapperWidth / 2) + (itemWidth / 2);
 
-    document.getElementById('leftBtn').onclick = () => {
-        centerIdx = (centerIdx - 1 + items.length) % items.length;
-        centerCarousel();
-    };
+                list.style.transition = 'transform 0.5s cubic-bezier(.77,0,.18,1)';
+                list.style.transform = `translateX(${-offset}px)`;
 
-    document.getElementById('rightBtn').onclick = () => {
-        centerIdx = (centerIdx + 1) % items.length;
-        centerCarousel();
-    };
+                items.forEach((item, i) => {
+                    item.classList.toggle('active', i === centerIdx);
+                });
 
-    let startX = null;
-    let isDragging = false;
-    let lastTransform = 0;
-
-    const list = document.getElementById('carouselList');
-    list.addEventListener('touchstart', (e) => {
-        if(e.touches.length !== 1) return;
-        isDragging = true;
-        startX = e.touches[0].clientX;
-        const transform = window.getComputedStyle(list).getPropertyValue('transform');
-        lastTransform = transform !== 'none' ? parseFloat(transform.split(',')[4].trim()) : 0;
-    });
-
-    list.addEventListener('touchmove', (e) => {
-        if(!isDragging) return;
-        const delta = e.touches[0].clientX - startX;
-        list.style.transition = 'none';
-        list.style.transform = `translateX(${lastTransform + delta}px)`;
-    });
-
-    list.addEventListener('touchend', (e) => {
-        if(!isDragging) return;
-        isDragging = false;
-        const delta = (e.changedTouches[0].clientX - startX);
-        if (Math.abs(delta) > 40) {
-            if (delta < 0) {
-                centerIdx = Math.min(centerIdx + 1, items.length - 1);
-            } else {
-                centerIdx = Math.max(centerIdx - 1, 0);
+                belowGroups.forEach(group => {
+                    group.classList.toggle('active', group.dataset.group === items[centerIdx].dataset.bg);
+                });
             }
-        }
-        centerCarousel();
-    });
 
-    centerCarousel();
-    window.addEventListener('resize', centerCarousel);
+            // Botões de navegação
+            document.getElementById('leftBtn').onclick = () => {
+                centerIdx = (centerIdx - 1 + items.length) % items.length;
+                centerCarousel();
+            };
 
-    const familiaBtn = document.getElementById('familiaBtn');
-    const familiaFoto = document.getElementById('familiaFoto');
-    if (familiaBtn && familiaFoto) {
-        familiaBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (familiaFoto.style.display === "none") {
-                familiaFoto.style.display = "block";
-                familiaFoto.style.opacity = 0;
-                setTimeout(() => {
-                    familiaFoto.style.transition = "opacity 0.4s";
-                    familiaFoto.style.opacity = 1;
-                }, 20);
-            } else {
-                familiaFoto.style.transition = "opacity 0.3s";
-                familiaFoto.style.opacity = 0;
-                setTimeout(() => {
-                    familiaFoto.style.display = "none";
-                }, 300);
+            document.getElementById('rightBtn').onclick = () => {
+                centerIdx = (centerIdx + 1) % items.length;
+                centerCarousel();
+            };
+
+            // Touch events para mobile
+            let startX = null;
+            let isDragging = false;
+            let lastTransform = 0;
+
+            const list = document.getElementById('carouselList');
+            list.addEventListener('touchstart', (e) => {
+                if(e.touches.length !== 1) return;
+                isDragging = true;
+                startX = e.touches[0].clientX;
+                const transform = window.getComputedStyle(list).getPropertyValue('transform');
+                lastTransform = transform !== 'none' ? parseFloat(transform.split(',')[4].trim()) : 0;
+            });
+
+            list.addEventListener('touchmove', (e) => {
+                if(!isDragging) return;
+                const delta = e.touches[0].clientX - startX;
+                list.style.transition = 'none';
+                list.style.transform = `translateX(${lastTransform + delta}px)`;
+            });
+
+            list.addEventListener('touchend', (e) => {
+                if(!isDragging) return;
+                isDragging = false;
+                const delta = (e.changedTouches[0].clientX - startX);
+                if (Math.abs(delta) > 40) {
+                    if (delta < 0) {
+                        centerIdx = Math.min(centerIdx + 1, items.length - 1);
+                    } else {
+                        centerIdx = Math.max(centerIdx - 1, 0);
+                    }
+                }
+                centerCarousel();
+            });
+
+            centerCarousel();
+            window.addEventListener('resize', centerCarousel);
+
+            // Função para alternar exibição de elementos
+            function setupToggleButton(buttonId, elementId) {
+                const button = document.getElementById(buttonId);
+                const element = document.getElementById(elementId);
+                if (button && element) {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+
+                        // Fechar todos os vídeos antes de abrir um novo
+                        document.querySelectorAll('.video-container').forEach(vid => {
+                            if (vid !== element) {
+                                vid.style.opacity = 0;
+                                setTimeout(() => {
+                                    vid.style.display = "none";
+                                }, 300);
+                            }
+                        });
+
+                        if (element.style.display === "none" || element.style.display === "") {
+                            // Carregar o vídeo apenas na primeira vez que for aberto
+                            const iframe = element.querySelector('iframe');
+                            if (iframe && !iframe.src && iframe.dataset.src) {
+                                iframe.src = iframe.dataset.src;
+                            }
+                            
+                            element.style.display = "block";
+                            element.style.opacity = 0;
+                            setTimeout(() => {
+                                element.style.transition = "opacity 0.4s";
+                                element.style.opacity = 1;
+                            }, 20);
+                        } else {
+                            element.style.transition = "opacity 0.3s";
+                            element.style.opacity = 0;
+                            setTimeout(() => {
+                                element.style.display = "none";
+                            }, 300);
+                        }
+                    });
+                }
             }
+
+            // Configurar todos os botões de vídeo
+            setupToggleButton('allDudesBtn', 'allDudesVideo');
+            setupToggleButton('scottPilgrimBtn', 'scottPilgrimVideo');
+            setupToggleButton('nirvanaBtn', 'nirvanaVideo');
+            setupToggleButton('gunsBtn', 'gunsVideo');
+            setupToggleButton('cartolaBtn', 'cartolaVideo');
+            setupToggleButton('arcticBtn', 'arcticVideo');
+            setupToggleButton('aerosmithBtn', 'aerosmithVideo');
+
+            // Botão da família
+            setupToggleButton('familiaBtn', 'familiaFoto');
         });
-    }
-});
-</script></body>
+    </script>
+</body>
 </html>
