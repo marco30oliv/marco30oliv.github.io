@@ -378,6 +378,121 @@
             font-size: 1.1rem;
         }
 
+        /* Galeria de Viagem */
+        .viagem-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            max-width: 800px;
+            margin-top: 1.2rem;
+            display: none;
+        }
+
+        .miniatura {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+
+        .miniatura:hover {
+            transform: scale(1.05);
+        }
+
+        .miniatura.video::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 20px;
+            text-shadow: 0 0 8px rgba(0,0,0,0.8);
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .lightbox-content img,
+        .lightbox-content video {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            transform: translateY(-50%);
+        }
+
+        .lightbox-btn {
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .lightbox-btn:hover {
+            background: rgba(0,0,0,0.8);
+            transform: scale(1.1);
+        }
+
+        .close-lightbox {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .close-lightbox:hover {
+            color: var(--secondary-color);
+        }
+
+        .lightbox-caption {
+            color: white;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1.1rem;
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -433,6 +548,17 @@
                 font-size: 0.88rem;
             }
 
+            .miniatura {
+                width: 65px;
+                height: 65px;
+            }
+
+            .lightbox-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
             .video-container iframe {
                 height: none;
             }
@@ -462,7 +588,10 @@
 
             <div class="carousel-buttons-below">
                 <div class="carousel-below-group" data-group="pessoal">
-                    <a href="https://photos.app.goo.gl/D84Vnx7s7Ym8srck8" class="btn btn-pessoal">Viagem legal</a>
+                    <a href="#" class="btn btn-pessoal" id="viagemBtn">Viagem legal</a>
+                    <div id="viagemGallery" class="viagem-gallery">
+                        <!-- Miniaturas serão inseridas via JavaScript -->
+                    </div>
                     <a href="#" class="btn btn-pessoal" id="familiaBtn">Família</a>
                     <div id="familiaFoto" style="display: none; margin-top: 1.2rem;">
                         <img src="https://marco30oliv.github.io/lilianoliveiraap3_20241225_p_3530861998906155906_2_3530861989460650851.webp"
@@ -472,7 +601,7 @@
                 </div>
                 <div class="carousel-below-group" data-group="musica">
                     <!-- All The Young Dudes -->
-                    <a href="#" class="btn btn-music" id="allDudesBtn">cover "all the young dudes" na guitarra</a>
+                    <a href="#" class="btn btn-music" id="allDudesBtn">tocando "all the young dudes" na guitarra</a>
                     <div id="allDudesVideo" class="video-container">
                         <div class="video-title">All The Young Dudes - Guitar Cover</div>
                         <iframe data-src="https://marco30oliv.github.io/all%20the%20young.mp4"></iframe>
@@ -486,14 +615,14 @@
                     </div>
 
                     <!-- Nirvana -->
-                    <a href="#" class="btn btn-music" id="nirvanaBtn">Cover "nirvana" na guitarra (video antigo)</a>
+                    <a href="#" class="btn btn-music" id="nirvanaBtn">Tocando "nirvana" na guitarra (video antigo)</a>
                     <div id="nirvanaVideo" class="video-container">
                         <div class="video-title">Nirvana - Guitar Cover</div>
                         <iframe data-src="https://marco30oliv.github.io/nirvana.mp4"></iframe>
                     </div>
 
                     <!-- Guns N' Roses -->
-                    <a href="#" class="btn btn-music" id="gunsBtn">cover "guns n' roses" na guitarra (errei 90% da musica, video antigo)</a>
+                    <a href="#" class="btn btn-music" id="gunsBtn">tocando "guns n' roses" na guitarra (errei 90% da musica, video antigo)</a>
                     <div id="gunsVideo" class="video-container">
                         <div class="video-title">Guns N' Roses - Guitar Cover</div>
                         <iframe data-src="https://marco30oliv.github.io/guns%20n%20roses.mp4"></iframe>
@@ -507,14 +636,14 @@
                     </div>
 
                     <!-- Arctic Monkeys -->
-                    <a href="#" class="btn btn-music" id="arcticBtn">cover da melhor de "Arctic Monkeys" na guitarra</a>
+                    <a href="#" class="btn btn-music" id="arcticBtn">tocando a melhor de "Arctic Monkeys" na guitarra</a>
                     <div id="arcticVideo" class="video-container">
                         <div class="video-title">Arctic Monkeys - Guitar Cover</div>
                         <iframe data-src="https://marco30oliv.github.io/arctic%20monkeys.mp4"></iframe>
                     </div>
 
                     <!-- Aerosmith -->
-                    <a href="#" class="btn btn-music" id="aerosmithBtn">cover "aerosmith" na bateria (tomei muito energético nesse dia)</a>
+                    <a href="#" class="btn btn-music" id="aerosmithBtn">tocando "aerosmith" na bateria (tomei muito energético nesse dia)</a>
                     <div id="aerosmithVideo" class="video-container">
                         <div class="video-title">Aerosmith - Drums Cover</div>
                         <iframe data-src="https://marco30oliv.github.io/aerosmith_001_001.mp4"></iframe>
@@ -528,7 +657,6 @@
 
                 <div class="carousel-below-group" data-group="outros">
                     <a href="#" class="btn btn-outros">D1</a>
-                    <a href="#" class="btn btn-outros">D2</a>
                 </div>
             </div>
         </div>
@@ -541,6 +669,17 @@
             <p>Estudante de Medicina pela <span class="highlight">Universidade Federal de Rondônia</span></p>
             <p>Focado no essencial</p>
         </div>
+    </div>
+
+    <!-- Lightbox para visualização ampliada -->
+    <div class="lightbox" id="lightbox">
+        <span class="close-lightbox">&times;</span>
+        <div class="lightbox-content" id="lightboxContent"></div>
+        <div class="lightbox-nav">
+            <button class="lightbox-btn" id="prevBtn">&#10094;</button>
+            <button class="lightbox-btn" id="nextBtn">&#10095;</button>
+        </div>
+        <div class="lightbox-caption" id="lightboxCaption"></div>
     </div>
 
     <script>
@@ -675,6 +814,119 @@
 
             // Botão da família
             setupToggleButton('familiaBtn', 'familiaFoto');
+
+            // Galeria de Viagem
+            const viagemMedia = [
+                { url: "https://marco30oliv.github.io/MV3.jpg", type: "image" },
+                { url: "https://marco30oliv.github.io/MV1.jpg", type: "image" },
+                { url: "https://marco30oliv.github.io/MV2.jpg", type: "image" },
+                { url: "https://marco30oliv.github.io/MV4.jpg", type: "image" },
+                { url: "https://marco30oliv.github.io/MV6.jpg", type: "image" },
+                { url: "https://marco30oliv.github.io/MV9.jpg", type: "image" },
+                { url: "https://marco30oliv.github.io/MV5.jpg", type: "image" },
+                { url: "https://marco30oliv.github.io/MV11.mp4", 
+                  type: "video", 
+                  thumb: "https://marco30oliv.github.io/MV11I.jpg" },
+                { url: "https://marco30oliv.github.io/MV8.jpg", type: "image" },
+                { url: "https://marco30oliv.github.io/MV10.mp4",
+                  type: "video", 
+                  thumb: "https://marco30oliv.github.io/MV10I.jpg" }
+            ];
+
+            const viagemBtn = document.getElementById('viagemBtn');
+            const viagemGallery = document.getElementById('viagemGallery');
+
+            // Criar miniaturas
+            viagemMedia.forEach((media, index) => {
+                const miniatura = document.createElement('div');
+                miniatura.classList.add('miniatura');
+                miniatura.style.backgroundImage = `url(${media.thumb || media.url})`;
+                if (media.type === 'video') miniatura.classList.add('video');
+                miniatura.dataset.index = index;
+                viagemGallery.appendChild(miniatura);
+            });
+
+            // Toggle da galeria
+            viagemBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                viagemGallery.style.display = viagemGallery.style.display === 'flex' ? 'none' : 'flex';
+            });
+
+            // Lightbox
+            const lightbox = document.getElementById('lightbox');
+            const lightboxContent = document.getElementById('lightboxContent');
+            const lightboxCaption = document.getElementById('lightboxCaption');
+            const closeLightbox = document.querySelector('.close-lightbox');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            let currentIndex = 0;
+
+            function openLightbox(index) {
+                currentIndex = index;
+                const media = viagemMedia[currentIndex];
+                
+                lightboxContent.innerHTML = '';
+                if (media.type === 'image') {
+                    const img = document.createElement('img');
+                    img.src = media.url;
+                    img.alt = `Imagem ${index + 1}`;
+                    lightboxContent.appendChild(img);
+                    lightboxCaption.textContent = `Imagem ${index + 1} de ${viagemMedia.length}`;
+                } else {
+                    const video = document.createElement('video');
+                    video.src = media.url;
+                    video.controls = true;
+                    video.autoplay = true;
+                    lightboxContent.appendChild(video);
+                    lightboxCaption.textContent = `Vídeo ${index + 1} de ${viagemMedia.length}`;
+                }
+                
+                lightbox.style.display = 'flex';
+            }
+
+            function closeLightboxHandler() {
+                lightbox.style.display = 'none';
+                // Pausar vídeo ao fechar
+                const video = lightboxContent.querySelector('video');
+                if (video) {
+                    video.pause();
+                }
+            }
+
+            // Eventos das miniaturas
+            viagemGallery.addEventListener('click', function(e) {
+                if (e.target.classList.contains('miniatura')) {
+                    const index = parseInt(e.target.dataset.index);
+                    openLightbox(index);
+                }
+            });
+
+            // Navegação no lightbox
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + viagemMedia.length) % viagemMedia.length;
+                openLightbox(currentIndex);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % viagemMedia.length;
+                openLightbox(currentIndex);
+            });
+
+            // Fechar lightbox
+            closeLightbox.addEventListener('click', closeLightboxHandler);
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox) {
+                    closeLightboxHandler();
+                }
+            });
+
+            // Fechar com ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeLightboxHandler();
+                }
+            });
         });
     </script>
 </body>
