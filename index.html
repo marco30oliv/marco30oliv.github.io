@@ -323,14 +323,14 @@
         .btn:hover::before {
             opacity: 1;
         }
-        
+
         .buttons .btn {
-        	padding: 0.8rem 1.8rem;
+                padding: 0.8rem 1.8rem;
             font-size: 0.95rem;
             max-width: 260px;
             margin: 0 auto;
         }
-        
+
         .buttons {
             display: flex;
             flex-direction: column;
@@ -588,6 +588,23 @@
 
             <div class="carousel-buttons-below">
                 <div class="carousel-below-group" data-group="pessoal">
+                    <a href="#" class="btn btn-pessoal" id="sobreMimBtn">Sobre mim</a>
+                    <div id="sobreMimContainer" style="display: none; margin-top: 1.2rem; max-width: 600px; text-align: left;">
+                        <img src="https://marco30oliv.github.io/sobremim.jpg" 
+                            alt="Marco Oliveira"
+                            style="max-width: 260px; border-radius: 20px; box-shadow: 0 4px 14px rgba(0,0,0,0.32); margin: 0 auto 20px; display: block;">
+                        <p style="color: white; line-height: 1.6; background: rgba(0,0,0,0.4); padding: 20px; border-radius: 10px;">
+                            "Marco Antônio de Oliveira nasceu em 30 de dezembro de 2002. É o filho mais novo de uma família com três irmãos. Desde muito cedo, demonstrou afinidade pela música, tendo grande interesse por vídeos musicais e instrumentais. Ao longo da infância, destacou-se também pelo foco nos estudos e pela dedicação à escola, sendo frequentemente reconhecido como um dos melhores alunos em desempenho e comportamento.
+                            <br><br>
+                            Na adolescência, aprofundou seu envolvimento com a música, aprendendo a tocar diversos instrumentos — entre eles, bateria, violão, teclado e, especialmente, a guitarra, que se tornou sua maior paixão musical.
+                            <br><br>
+                            Aos 16 anos, passou a dedicar-se intensamente aos estudos, passando madrugadas em claro e longas horas concentrado em seu quarto, já determinado a pleitear uma vaga no ensino superior. Aos 19 anos, foi aprovado no vestibular para o curso de Medicina em uma Universidade Federal (UNIR), o que exigiu uma grande mudança: deixou a casa dos pais, em Montes Claros (MG), e mudou-se para Porto Velho (RO).
+                            <br><br>
+                            A transição foi desafiadora, marcada por dificuldades emocionais e conflitos internos, mas também por superações que o tornaram mais forte e determinado. Atualmente, Marco cursa Medicina e, nas horas vagas, continua a alimentar sua paixão pela música, especialmente tocando guitarra."
+                            <br> 
+                            <p> <span style="margin-left: 100px;">- Lilian Oliveira (mãe)</span></p>
+                        </p>
+                    </div>
                     <a href="#" class="btn btn-pessoal" id="familiaBtn">Família</a>
                     <div id="familiaFoto" style="display: none; margin-top: 1.2rem;">
                         <img src="https://marco30oliv.github.io/lilianoliveiraap3_20241225_p_3530861998906155906_2_3530861989460650851.webp"
@@ -788,7 +805,7 @@
                             if (iframe && !iframe.src && iframe.dataset.src) {
                                 iframe.src = iframe.dataset.src;
                             }
-                            
+
                             element.style.display = "block";
                             element.style.opacity = 0;
                             setTimeout(() => {
@@ -816,7 +833,8 @@
             setupToggleButton('arcticBtn', 'arcticVideo');
             setupToggleButton('aerosmithBtn', 'aerosmithVideo');
 
-            // Botão da família
+            // Botões pessoal
+             setupToggleButton('sobreMimBtn', 'sobreMimContainer');            
             setupToggleButton('familiaBtn', 'familiaFoto');
 
             // Galeria de Viagem
@@ -869,7 +887,7 @@
             function openLightbox(index) {
                 currentIndex = index;
                 const media = viagemMedia[currentIndex];
-                
+
                 lightboxContent.innerHTML = '';
                 if (media.type === 'image') {
                     const img = document.createElement('img');
@@ -885,7 +903,7 @@
                     lightboxContent.appendChild(video);
                     lightboxCaption.textContent = `Vídeo ${index + 1} de ${viagemMedia.length}`;
                 }
-                
+
                 lightbox.style.display = 'flex';
             }
 
