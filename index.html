@@ -783,45 +783,55 @@
 
             // Função para alternar exibição de elementos
             function setupToggleButton(buttonId, elementId) {
-                const button = document.getElementById(buttonId);
-                const element = document.getElementById(elementId);
-                if (button && element) {
-                    button.addEventListener('click', function(e) {
-                        e.preventDefault();
+    const button = document.getElementById(buttonId);
+    const element = document.getElementById(elementId);
+    if (button && element) {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
 
-                        // Fechar todos os vídeos antes de abrir um novo
-                        document.querySelectorAll('.video-container').forEach(vid => {
-                            if (vid !== element) {
-                                vid.style.opacity = 0;
-                                setTimeout(() => {
-                                    vid.style.display = "none";
-                                }, 300);
-                            }
-                        });
-
-                        if (element.style.display === "none" || element.style.display === "") {
-                            // Carregar o vídeo apenas na primeira vez que for aberto
-                            const media = element.querySelector('iframe, video');
-if (media && !media.src && media.dataset.src) {
-    media.src = media.dataset.src;
-}
-
-                            element.style.display = "block";
-                            element.style.opacity = 0;
-                            setTimeout(() => {
-                                element.style.transition = "opacity 0.4s";
-                                element.style.opacity = 1;
-                            }, 20);
-                        } else {
-                            element.style.transition = "opacity 0.3s";
-                            element.style.opacity = 0;
-                            setTimeout(() => {
-                                element.style.display = "none";
-                            }, 300);
+            // Fechar todos os vídeos abertos
+            document.querySelectorAll('.video-container').forEach(vid => {
+                if (vid !== element) {
+                    vid.style.opacity = 0;
+                    setTimeout(() => {
+                        vid.style.display = "none";
+                        const v = vid.querySelector('video');
+                        if (v) {
+                            v.pause();
+                            v.removeAttribute('src');
+                            v.load();
                         }
-                    });
+                    }, 300);
                 }
+            });
+
+            const media = element.querySelector('video, iframe');
+
+            if (element.style.display === "none" || element.style.display === "") {
+                // Só adiciona src se ainda não tiver sido carregado
+                if (media && !media.src && media.dataset.src) {
+                    media.src = media.dataset.src;
+                    if (media.tagName.toLowerCase() === 'video') {
+                        media.load(); // necessário no iPhone
+                    }
+                }
+
+                element.style.display = "block";
+                element.style.opacity = 0;
+                setTimeout(() => {
+                    element.style.transition = "opacity 0.4s";
+                    element.style.opacity = 1;
+                }, 20);
+            } else {
+                element.style.transition = "opacity 0.3s";
+                element.style.opacity = 0;
+                setTimeout(() => {
+                    element.style.display = "none";
+                }, 300);
             }
+        });
+    }
+}
 
             // Configurar todos os botões de vídeo
             setupToggleButton('allDudesBtn', 'allDudesVideo');
