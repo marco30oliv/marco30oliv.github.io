@@ -801,10 +801,10 @@
 
                         if (element.style.display === "none" || element.style.display === "") {
                             // Carregar o vídeo apenas na primeira vez que for aberto
-                            const iframe = element.querySelector('iframe');
-                            if (iframe && !iframe.src && iframe.dataset.src) {
-                                iframe.src = iframe.dataset.src;
-                            }
+                            const media = element.querySelector('iframe, video');
+if (media && !media.src && media.dataset.src) {
+    media.src = media.dataset.src;
+}
 
                             element.style.display = "block";
                             element.style.opacity = 0;
